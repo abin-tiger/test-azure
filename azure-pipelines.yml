@@ -24,6 +24,5 @@ stages:
       vmImage: 'ubuntu-20.04'
 
     steps:
-        - task: CmdLine@2
-          inputs:
-            script: echo "Deploying image $[ replace(variables.tag, 'v', '') ]"
+    - script: |
+        echo ${{ replace(variables.tag, 'v', '') }} # outputs v1.0 
