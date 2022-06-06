@@ -1,0 +1,29 @@
+trigger:
+  batch: false
+
+  tags:
+    include:
+    - v*
+
+pr: none
+  
+
+variables:
+  - name: tag
+    value: '$(Build.SourceBranchName)'
+  - name: semanticVersion
+    value: $[ replace(variables['Build.SourceBranchName'], 'v', '') ]
+
+stages:
+- stage: 'Build'
+  displayName: 'Build the web application'
+  jobs:
+  - job: 'Build'
+    displayName: 'Build job'
+    pool:
+      vmImage: 'ubuntu-20.04'
+
+    steps:
+        - task: CmdLine@2
+          inputs:
+            script: echo "Deploying image $[ replace(variables.tag, 'v', '') ]"
